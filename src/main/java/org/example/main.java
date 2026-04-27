@@ -5,6 +5,8 @@ import org.example.repository.InMemoryVectorStoreService;
 import org.example.service.Chunking.TextChunkingService;
 import org.example.service.LLM.GeminiLLMService;
 import org.example.service.LLM.LLMService;
+import org.example.service.Retrieval.GeminiRetrievalService;
+import org.example.service.Retrieval.OpenAIRetrievalService;
 import org.example.service.Retrieval.RetrievalService;
 import org.example.service.reader.PDFService;
 
@@ -17,9 +19,9 @@ public class main {
     public static void main(String[] args) throws Exception {
         // ---------------Read PDF
         PDFService pdfService = new PDFService();
-        String cadenza = pdfService.readPDF("src/main/resources/cadenza.pdf");
-        String greenage = pdfService.readPDF("src/main/resources/greenage.pdf");
-        String zoo = pdfService.readPDF("src/main/resources/zoo.pdf");
+        String cadenza = pdfService.readPDF("src/main/resources/pdfs/cadenza.pdf");
+        String greenage = pdfService.readPDF("src/main/resources/pdfs/greenage.pdf");
+        String zoo = pdfService.readPDF("src/main/resources/pdfs/zoo.pdf");
 
 
         // -------------------chunking
@@ -32,6 +34,8 @@ public class main {
         allChunks.addAll(cadenzaChunks);
         allChunks.addAll(greenageChunks);
         allChunks.addAll(zooChunks);
+        System.out.println("************** All Chunks ********************");
+        System.out.println(allChunks);
 
         //-------------------- embedding and storing in vector db for cadenza
         LLMService llmService = new GeminiLLMService();
@@ -45,8 +49,9 @@ public class main {
 
 
         ///............... Going to the question/retrieval part now---------------
-        RetrievalService retrievalService = new RetrievalService();
-        String question = "What is the cadenza?";
+        RetrievalService retrievalService = new GeminiRetrievalService();
+//        RetrievalService retrievalService = new OpenAIRetrievalService();
+        String question = "What is cadenza?";
         String context = retrievalService.retrieveSimilarVectors(question, vectorStoreService, 2);
         System.out.println("Answer(which will serve as context for actual LLM: " + context);
 

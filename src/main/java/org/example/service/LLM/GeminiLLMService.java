@@ -16,12 +16,17 @@ public class GeminiLLMService implements LLMService {
 
     public GeminiLLMService() throws IOException {
         Properties properties = RAGProperties.getInstance().getProperties();
-        API_KEY = properties.getProperty("api.key.gemini");
+        API_KEY = System.getenv("GEMINI_API_KEY");
     }
 
     @Override
     public List<Double> getEmbedding(String text) throws IOException {
-        String url = "https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=" + API_KEY;
+
+        if (API_KEY == null || API_KEY.isEmpty()) {
+            throw new IllegalStateException("Gemini API Key is missing. Check your properties file.");
+        }
+
+        String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-embedding-2:embedContent?key=" + API_KEY;
 
         String body = """
         {

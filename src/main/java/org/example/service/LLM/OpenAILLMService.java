@@ -21,11 +21,16 @@ public class OpenAILLMService implements LLMService {
 
     public OpenAILLMService() throws IOException {
         Properties properties = RAGProperties.getInstance().getProperties();
-        OPENAI_API_KEY = properties.getProperty("api.key.openai");
+        OPENAI_API_KEY = System.getenv("OPENAI_API_KEY");
     }
 
     @Override
     public List<Double> getEmbedding(String text) throws IOException, ParseException {
+
+        if (OPENAI_API_KEY == null || OPENAI_API_KEY.isEmpty()) {
+            throw new IllegalStateException("Open API Key is missing. Check your properties file.");
+        }
+
         String endpoint = "https://api.openai.com/v1/embeddings";
 
         String body = """
