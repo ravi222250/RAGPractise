@@ -1,5 +1,6 @@
 package org.example.service.LLM;
 
+import org.apache.hc.client5.http.fluent.Request;
 import org.example.config.RAGProperties;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -8,7 +9,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import org.apache.hc.client5.http.fluent.Request;
 
 public class GeminiLLMService implements LLMService {
 

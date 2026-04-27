@@ -51,7 +51,7 @@ public class main {
         ///............... Going to the question/retrieval part now---------------
         RetrievalService retrievalService = new GeminiRetrievalService();
 //        RetrievalService retrievalService = new OpenAIRetrievalService();
-        String question = "What is cadenza?";
+        String question = "what is the swimming pool depth in cadenza?";
         String context = retrievalService.retrieveSimilarVectors(question, vectorStoreService, 2);
         System.out.println("Answer(which will serve as context for actual LLM: " + context);
 
