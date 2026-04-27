@@ -1,11 +1,11 @@
 package org.example.repository;
 
-import org.example.service.similarity.CosineSimilarity;
+import org.example.service.Retrieval.similarityAlgo.CosineSimilarity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InMemoryVectorDBStore {
+public class InMemoryVectorStoreService {
 
     private List<VectorDBItem> items = new ArrayList<>();
 

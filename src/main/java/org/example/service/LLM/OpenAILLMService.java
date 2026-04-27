@@ -76,8 +76,6 @@ public class OpenAILLMService implements LLMService {
         request.setHeader("Content-Type", "application/json");
         request.setEntity(new StringEntity(body));
 
-        List<Double> embedding = new ArrayList<>();
-
         CloseableHttpClient client = HttpClients.createDefault();
         return client.execute(request, response ->
                 EntityUtils.toString(response.getEntity())
