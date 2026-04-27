@@ -61,19 +61,18 @@ public class GeminiLLMService implements LLMService {
 
     @Override
     public String ask(String prompt) throws IOException {
-        String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + API_KEY;
+        // 1. Update the URL to use gemini-3-flash
+        String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=" + API_KEY;
 
-        String body = """
-        {
-          "contents": [
-            {
-              "parts": [
-                {"text": "%s"}
-              ]
-            }
-          ]
-        }
-        """.formatted(prompt.replace("\"", "\\\""));
+        // 2. Updated body (Using JSONObject to avoid manual escaping issues)
+        JSONObject textPart = new JSONObject().put("text", prompt);
+        JSONArray parts = new JSONArray().put(textPart);
+        JSONObject contents = new JSONObject().put("parts", parts);
+
+        JSONObject root = new JSONObject();
+        root.put("contents", new JSONArray().put(contents));
+
+        String body = root.toString();
 
         String response = Request.post(url)
                 .bodyString(body, org.apache.hc.core5.http.ContentType.APPLICATION_JSON)
@@ -83,6 +82,7 @@ public class GeminiLLMService implements LLMService {
 
         JSONObject json = new JSONObject(response);
 
+        // Response structure remains consistent with the previous versions
         return json
                 .getJSONArray("candidates")
                 .getJSONObject(0)
