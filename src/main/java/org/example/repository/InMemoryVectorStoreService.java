@@ -1,6 +1,6 @@
 package org.example.repository;
 
-import org.example.service.Retrieval.similarityAlgo.CosineSimilarity;
+import org.example.service.retrieval.similarityAlgo.CosineSimilarity;
 
 import java.util.ArrayList;
 import java.util.List;

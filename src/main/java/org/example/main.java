@@ -5,9 +5,8 @@ import org.example.repository.InMemoryVectorStoreService;
 import org.example.service.Chunking.TextChunkingService;
 import org.example.service.LLM.GeminiLLMService;
 import org.example.service.LLM.LLMService;
-import org.example.service.Retrieval.GeminiRetrievalService;
-import org.example.service.Retrieval.OpenAIRetrievalService;
-import org.example.service.Retrieval.RetrievalService;
+import org.example.service.retrieval.GeminiRetrievalService;
+import org.example.service.retrieval.RetrievalService;
 import org.example.service.reader.PDFService;
 
 import java.util.ArrayList;

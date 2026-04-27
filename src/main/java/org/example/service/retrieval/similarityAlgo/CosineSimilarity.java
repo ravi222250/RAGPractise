@@ -1,4 +1,4 @@
-package org.example.service.Retrieval.similarityAlgo;
+package org.example.service.retrieval.similarityAlgo;
 
 import java.util.List;
 
@@ -10,7 +10,9 @@ public class CosineSimilarity implements Similarity {
             throw new IllegalArgumentException("Vectors must be of the same length");
         }
 
-        Double num0 = 0.0, num1 = 0.0, num2 = 0.0;
+        Double num0 = 0.0;
+        Double num1 = 0.0;
+        Double num2 = 0.0;
 
         for (int i = 0; i < v1.size(); i++) {
             if (v1.get(i) == null || v2.get(i) == null) {

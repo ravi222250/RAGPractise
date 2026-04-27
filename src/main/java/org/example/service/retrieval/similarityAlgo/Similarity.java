@@ -1,4 +1,4 @@
-package org.example.service.Retrieval.similarityAlgo;
+package org.example.service.retrieval.similarityAlgo;
 
 import java.util.List;
 

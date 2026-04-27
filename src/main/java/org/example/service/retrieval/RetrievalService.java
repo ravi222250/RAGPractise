@@ -1,4 +1,4 @@
-package org.example.service.Retrieval;
+package org.example.service.retrieval;
 
 import org.apache.hc.core5.http.ParseException;
 import org.example.repository.InMemoryVectorStoreService;
