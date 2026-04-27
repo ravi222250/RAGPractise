@@ -25,9 +25,9 @@ public class main {
 
         // -------------------chunking
         TextChunkingService chunkingService = new TextChunkingService();
-        List<String> cadenzaChunks = chunkingService.chunkText(cadenza, 100);
-        List<String> greenageChunks = chunkingService.chunkText(greenage, 100);
-        List<String> zooChunks = chunkingService.chunkText(zoo, 100);
+        List<String> cadenzaChunks = chunkingService.chunkWithOverlap(cadenza, 200, 100);
+        List<String> greenageChunks = chunkingService.chunkWithOverlap(greenage, 200, 100);
+        List<String> zooChunks = chunkingService.chunkWithOverlap(zoo, 200, 100);
 
         List<String> allChunks = new ArrayList<>();
         allChunks.addAll(cadenzaChunks);
@@ -41,7 +41,9 @@ public class main {
         //LLMService llmService = new OpenAILLMService();
         InMemoryVectorStoreService vectorStoreService = new InMemoryVectorStoreService();
 
+        int i = 1;
         for (String chunk: allChunks) {
+            System.out.println("Chunk #" + i++ + ": " +chunk);
             List<Double> embedding = llmService.getEmbedding(chunk);
             vectorStoreService.addItem(chunk, embedding);
         }
@@ -50,7 +52,15 @@ public class main {
         ///............... Going to the question/retrieval part now---------------
         RetrievalService retrievalService = new GeminiRetrievalService();
 //        RetrievalService retrievalService = new OpenAIRetrievalService();
-        String question = "what is the swimming pool depth in cadenza?";
+
+//        String question = "what is the swimming pool depth in cadenza?";
+//        String question = "what is the swimming pool depth in greenage?";
+//        String question = "what is address of benerghatta national park and what is the ticket cost?";
+//        String question = "what is the size of the Bannerghatta?";
+//        String question = "which city is Bannerghatta Zoo located in?";
+        String question = "what kind of animals are in the Amazon Rain forest?";;
+
+
         String context = retrievalService.retrieveSimilarVectors(question, vectorStoreService, 2);
         System.out.println("Answer(which will serve as context for actual LLM: " + context);
 
